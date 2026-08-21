@@ -6,6 +6,7 @@ from src.blackbook.preliminary.declaration import add_declaration_page
 from src.blackbook.preliminary.acknowledgement import add_acknowledgement_page
 from src.blackbook.preliminary.abstract import add_abstract_page
 from src.blackbook.preliminary.index import add_index_page
+from src.blackbook.chapters.renderer import render_markdown
 
 def main():
     config = BlackbookConfig()
@@ -31,12 +32,9 @@ I would like to thank my friends and classmates for their valuable suggestions, 
 Finally, I would like to thank my parents and family for their constant support, encouragement and motivation throughout the completion of this project.
 """,
 "abstract": """
-CLEANYTICS is an integrated Data Analytics and Business Intelligence platform
-designed to simplify the complete data analysis workflow through a unified
-web-based environment. The system enables users to upload datasets, perform
-data cleaning and transformation operations, analyze data, generate
-visualizations and dashboards, and obtain meaningful analytical insights
-without requiring extensive technical expertise.
+Cleanlytics is a web-based data analytics and cleaning platform that provides data preparation, analysis, 
+and visualization through a single interface. It supports CSV, Excel, JSON and automatically profiles uploaded data 
+to identify its structure, data types, missing values, and quality issues.
 
 The platform provides features such as missing-value handling, duplicate
 removal, data standardization, column transformation, filtering, sorting and
@@ -45,12 +43,18 @@ that helps represent business-oriented measures and relationships within
 datasets. Users can create interactive dashboards using different
 visualization techniques and generate reports for further use.
 
+The platform uses DuckDB as its server-side analytical engine for profiling, cleaning, joining, and aggregation. 
+Its quality engine identifies issues such as missing values, duplicates, outliers, and type inconsistencies 
+and provides suitable corrective actions. Cleanlytics also detects relationships between multiple tables 
+and uses approved relationships to perform cross-table analysis through a semantic model.
+
 CLEANYTICS aims to reduce the complexity of traditional data preparation and
 Business Intelligence workflows by bringing data processing, visualization,
-analytics and reporting into a single platform. The system is developed using
-modern web technologies with a Next.js and React-based frontend and a Python
-FastAPI backend supported by data-processing libraries such as Pandas and
-NumPy. The proposed system provides a practical, scalable and user-friendly
+analytics and reporting into a single platform. The system includes interactive dashboards, 
+automatic dashboard generation, data export, and operation history with undo support. 
+It is developed using Next.js 16, React 19, FastAPI, Python, and DuckDB, providing an 
+integrated workflow from raw data to meaningful insights.
+ The proposed system provides a practical, scalable and user-friendly
 approach to transforming raw data into actionable information.
 """,
 "index": [
@@ -179,6 +183,14 @@ approach to transforming raw data into actionable information.
     add_acknowledgement_page(document, data)
     add_abstract_page(document, data)
     add_index_page(document, data)
+    document.add_page_break()
+    render_markdown(
+    document,
+    "src/blackbook/chapters/introduction.md"
+)
+    
+
+
 
     document.save("output/cover_test.docx")
 

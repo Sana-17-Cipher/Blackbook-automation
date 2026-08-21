@@ -48,3 +48,16 @@ def add_centered_text(document, text, size=12, bold=False):
     apply_font(run, size=size, bold=bold)
 
     return paragraph
+
+
+
+def configure_styles(document):
+    styles = document.styles
+
+    normal = styles["Normal"]
+
+    normal.font.name = "Times New Roman"
+    normal.font.size = Pt(12)
+
+    normal.paragraph_format.space_after = Pt(8)
+    normal.paragraph_format.line_spacing = 1.15

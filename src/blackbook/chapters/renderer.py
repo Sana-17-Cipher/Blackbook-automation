@@ -12,6 +12,8 @@ from .structure_detector import (
     SUBHEADING,
     BULLET,
     NUMBERED,
+    REQUIREMENT,
+    TABLE,
     BODY,
 )
 
@@ -151,6 +153,70 @@ def add_numbered_item(document, text):
     return paragraph
 
 
+def add_requirement(document, text, bold_prefix=None):
+    """
+    Add a requirement item like "I. User Authentication The system
+    must allow..." with the label bolded and the rest normal weight,
+    as a plain (non-bulleted) paragraph with a hanging indent.
+    """
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.left_indent = Pt(18)
+    paragraph.paragraph_format.first_line_indent = Pt(-18)
+    paragraph.paragraph_format.space_after = Pt(8)
+    paragraph.paragraph_format.line_spacing = 1.15
+
+    if bold_prefix:
+        remainder = text
+        if remainder.startswith(bold_prefix):
+            remainder = remainder[len(bold_prefix):].lstrip()
+
+        bold_run = paragraph.add_run(clean_inline_markdown(bold_prefix) + " ")
+        bold_run.bold = True
+        bold_run.font.size = Pt(12)
+        bold_run.font.name = "Times New Roman"
+
+        rest_run = paragraph.add_run(clean_inline_markdown(remainder))
+        rest_run.font.size = Pt(12)
+        rest_run.font.name = "Times New Roman"
+    else:
+        text = clean_inline_markdown(text)
+        run = paragraph.add_run(text)
+        run.font.size = Pt(12)
+        run.font.name = "Times New Roman"
+
+    return paragraph
+
+
+def add_table(document, rows):
+    """
+    Render a plain-text tab-separated block as a real Word table.
+    rows[0] is treated as the header row (bold).
+    """
+    if not rows:
+        return None
+
+    num_cols = max(len(r) for r in rows)
+    table = document.add_table(rows=len(rows), cols=num_cols)
+    table.style = "Table Grid"
+
+    for row_idx, row_data in enumerate(rows):
+        cells = table.rows[row_idx].cells
+        for col_idx in range(num_cols):
+            text = row_data[col_idx] if col_idx < len(row_data) else ""
+            cell = cells[col_idx]
+            cell.text = ""
+            paragraph = cell.paragraphs[0]
+            run = paragraph.add_run(clean_inline_markdown(text))
+            run.font.size = Pt(12)
+            run.font.name = "Times New Roman"
+            run.bold = (row_idx == 0)
+
+    spacer = document.add_paragraph()
+    spacer.paragraph_format.space_after = Pt(4)
+
+    return table
+
+
 # ---------------------------------------------------------------------
 # NEW: render directly from plain text -- no Markdown step required.
 # ---------------------------------------------------------------------
@@ -219,6 +285,12 @@ def _render_tokens(document, tokens):
 
         elif token.type == NUMBERED:
             add_numbered_item(document, token.text)
+
+        elif token.type == REQUIREMENT:
+            add_requirement(document, token.text, bold_prefix=token.bold_prefix)
+
+        elif token.type == TABLE:
+            add_table(document, token.rows)
 
         elif token.type == BODY:
             add_body_paragraph(document, token.text)

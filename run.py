@@ -192,6 +192,11 @@ approach to transforming raw data into actionable information.
        document,
        "src/blackbook/chapters/survey_of_technologies.txt"
    )
+    document.add_page_break()
+    render_plain_text_file(
+           document,
+           "src/blackbook/chapters/requirement_analysis.txt"
+       )
     
     
     

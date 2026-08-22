@@ -1,0 +1,39 @@
+CHAPTER 3: REQUIREMENT AND ANALYSIS
+3.1.1 Problem Definition
+Organisations and analysts working with data frequently receive raw datasets in CSV or Excel format that contain missing values, duplicate records, inconsistent data types, and outliers. Cleaning this data manually using spreadsheet tools or custom scripts is time-consuming, error-prone, and requires technical expertise. There is no straightforward way to profile a dataset, understand its quality issues, apply corrections, and visualise insights—all within a single platform. There is therefore a need for a unified, web-based tool that automates data profiling, detects quality issues, applies cleaning operations, and presents results through interactive dashboards without requiring users to write code.
+
+3.1.2 Existing System
+Most data cleaning today is done using spreadsheet applications such as Microsoft Excel or Google Sheets, which offer no automated profiling, no outlier detection, and no audit trail of changes made. Advanced users rely on Python scripts using Pandas, which requires programming knowledge and offers no graphical interface or built-in visualisation. Dedicated BI tools like Power BI or Tableau focus on visualisation but provide limited data cleaning capabilities and cannot handle the cleaning workflow end to end. None of these solutions combine automated quality analysis, one-click cleaning operations, and drag-and-drop dashboards in a single accessible platform. Large file sizes also remain a bottleneck, as most tools attempt to load entire datasets into memory.
+
+3.1.3 Proposed System
+Cleanlytics is a web-based data cleaning and analytics platform that allows users to upload CSV and Excel files, automatically profile their datasets, detect quality issues, apply cleaning operations, and build interactive dashboards—all without writing code. The system organises work into projects, each backed by an embedded DuckDB analytical database so that files up to 200 MB can be processed without loading data into memory. A FastAPI backend exposes a RESTful API consumed by a Next.js frontend. Users authenticate via Google OAuth and can manage multiple datasets per project, view per-column statistics, fix issues (missing values, duplicates, outliers, type errors) with a single click, detect relationships between tables, and publish charts on a customisable drag-and-drop dashboard.
+
+3.2 Requirement Specification
+Functional Requirements
+I. User Authentication The system must allow secure login via Google OAuth 2.0 with JWT-based session management and role-based access so that each user sees only their own projects and data.
+
+II. File Upload & Ingestion Users must be able to upload CSV and Excel (.xlsx) files up to 200 MB. Multi-sheet workbooks must be split into individual tables automatically.
+
+III. Automated Data Profiling The system must compute per-column statistics (null rate, distinct count, min, max, mean, top values, inferred type) and a composite quality score for every uploaded table.
+
+IV. Quality Issue Detection The system must automatically identify missing values, duplicate rows, type mismatches, and outliers and present them as actionable findings with suggested repairs.
+
+V. Data Cleaning Operations Users must be able to apply cleaning operations (imputation, deduplication, type casting, column renaming, outlier removal, row filtering) with one click. Destructive operations must be reversible via undo.
+
+VI. Relationship Detection The system must detect and display foreign-key relationships between tables in a project based on column name similarity and value overlap.
+
+VII. Dashboard Builder Users must be able to create interactive charts (Bar, Line, Pie, Area, Scatter) and arrange them on a drag-and-drop grid that persists across sessions.
+
+VIII. Data Export Users must be able to download cleaned datasets as CSV or Excel files.
+
+IX. Responsive Design The platform must function correctly across desktop and tablet browsers.
+
+Non-Functional Requirements
+#	Requirement	Description
+I	Performance	Large files (up to 200 MB) must be profiled and cleaned without significant delays by executing all analytics inside DuckDB rather than loading data into Python memory.
+II	Scalability	The system must support multiple concurrent users, each with isolated project workspaces.
+III	Security	User data must be protected with Google OAuth 2.0 authentication, signed JWT tokens, and environment-based secret management.
+IV	Usability	The interface must allow non-technical users to clean and visualise data without writing any code.
+V	Reliability	The application must handle errors gracefully with clear feedback and maintain data integrity through transactional database operations.
+VI	Maintainability	The codebase must be modular, fully typed (TypeScript on the frontend, Pydantic on the backend), and clearly documented for easy updates.
+VII	Compatibility	The application must be compatible with modern browsers and support both PostgreSQL (production) and SQLite (local development) with no code changes.

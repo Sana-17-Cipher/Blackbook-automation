@@ -1,0 +1,35 @@
+CHAPTER 2: SURVEY OF TECHNOLOGIES
+1. Frontend Technologies
+Next.js 16 (App Router): React framework for routing, API integration, and server-side rendering.
+React 19: JavaScript library for building dynamic, reusable UI components.
+TypeScript 5: Typed superset of JavaScript for static type checking and code reliability.
+Tailwind CSS 4: Utility-first CSS framework for building a responsive, modern UI.
+Recharts 3: React charting library for Bar, Line, Pie, Area, and Scatter chart visualisations.
+React Grid Layout: Enables drag-and-drop customisable dashboard layouts.
+SheetJS (xlsx): Handles importing and exporting CSV and Excel (.xlsx) files.
+Lucide React: Open-source icon library used throughout the interface.
+HTML5 / JSX / TSX: Provides page structure and client-side interactivity.
+2. Backend Technologies
+Python 3.10: Primary backend language for API development and data processing.
+FastAPI: High-performance framework for building RESTful APIs.
+DuckDB ≥ 1.1: Core analytical engine; runs all profiling, cleaning, and aggregation as SQL without loading data into memory, supporting files up to 200 MB.
+Pandas & openpyxl: Used only to convert Excel files into a DuckDB-ingestible format.
+Uvicorn: ASGI server used to run the FastAPI application.
+Pydantic ≥ 2: Validates all API request and response data.
+python-dotenv: Loads environment variables securely from a .env file.
+3. Database Technologies
+PostgreSQL: Relational database for storing users, projects, and application metadata in production.
+SQLite: Zero-configuration default database for local development.
+SQLAlchemy: Python ORM for database operations without writing raw SQL.
+psycopg2-binary: PostgreSQL adapter connecting SQLAlchemy to the database.
+4. Authentication Technologies
+Google OAuth 2.0 & google-auth: Secure user authentication via Google accounts.
+Google Identity Services (GIS): Manages the client-side Google Sign-In flow.
+python-jose (JWT): Issues and validates signed session tokens.
+5. Version Control
+Git: Tracks all source code changes across the project.
+GitHub: Hosts the remote repository and manages version control.
+6. Development Tools
+Node.js & npm: Runs the development server and manages frontend dependencies.
+ESLint 9: Enforces code quality and Next.js coding standards.
+PostCSS & @tailwindcss/postcss: Compiles Tailwind CSS into browser-compatible styles.

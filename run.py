@@ -7,7 +7,7 @@ from src.blackbook.preliminary.acknowledgement import add_acknowledgement_page
 from src.blackbook.preliminary.abstract import add_abstract_page
 from src.blackbook.preliminary.index import add_index_page
 from src.blackbook.chapters.renderer import render_markdown
-
+from src.blackbook.chapters.renderer import render_plain_text_file
 def main():
     config = BlackbookConfig()
     document = create_document(config)
@@ -186,8 +186,15 @@ approach to transforming raw data into actionable information.
     document.add_page_break()
     render_markdown(
     document,
-    "src/blackbook/chapters/introduction.md"
-)
+    "src/blackbook/chapters/introduction.md")
+    document.add_page_break()
+    render_plain_text_file(
+       document,
+       "src/blackbook/chapters/survey_of_technologies.txt"
+   )
+    
+    
+    
     
 
 

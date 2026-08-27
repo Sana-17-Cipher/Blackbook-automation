@@ -50,19 +50,22 @@ Cleanlytics can be used by business analysts, students, researchers, data engine
 
 ## 1.4 ACHIEVEMENTS
 
-Cleanlytics successfully integrates data ingestion, profiling, cleaning, relationship detection, semantic modelling, analytics, and visualization into one platform.
-
-Major achievements include:
-
-- Server-side processing using DuckDB for efficient handling of large datasets.
-- Automated profiling and quality issue detection.
-- Multi-file and multi-sheet Excel support.
-- Automatic relationship detection with cardinality and confidence scoring.
-- Cross-table analytical queries through the semantic model.
-- Automatic dashboard generation.
-- Reversible data operations with operation history and undo.
-- Export support for CSV, Excel, JSON.
-- Successful testing with a 151 MB dataset containing approximately 2.2 million rows.
+● The Cleanlytics project was successfully developed as an integrated platform for data
+preparation and analysis. The system allows users to upload datasets, analyse their
+quality, clean and transform data, identify relationships between tables, and generate
+meaningful visualizations through a single interface.
+● The major achievements of the project include successful server-side data processing
+using DuckDB, allowing the system to handle large datasets efficiently. The platform
+also provides automated data profiling and quality detection, along with support for
+multiple files and Excel worksheets.
+● Cleanlytics successfully detects relationships between tables and provides cardinality
+and confidence information, which is further used for cross-table analytical queries
+through the semantic model. Users can also generate dashboards, perform reversible data
+operations using operation history and undo, and export processed data in formats such as
+CSV, Excel, and JSON.
+● The system was also tested with a 151 MB dataset containing approximately 2.2
+million rows, demonstrating that the platform can handle large datasets while
+maintaining efficient data processing.
 
 ## 1.5 ORGANIZATION OF REPORT
 

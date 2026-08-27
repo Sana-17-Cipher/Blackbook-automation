@@ -37,3 +37,97 @@ IV	Usability	The interface must allow non-technical users to clean and visualise
 V	Reliability	The application must handle errors gracefully with clear feedback and maintain data integrity through transactional database operations.
 VI	Maintainability	The codebase must be modular, fully typed (TypeScript on the frontend, Pydantic on the backend), and clearly documented for easy updates.
 VII	Compatibility	The application must be compatible with modern browsers and support both PostgreSQL (production) and SQLite (local development) with no code changes.
+
+3.3 PLANNING AND SCHEDULING
+
+[figure: 3.3.1]
+
+[figure: 3.3.2]
+
+3.4 SOFTWARE AND HARDWARE REQUIREMENTS
+
+Software Requirements
+
+Frontend Technologies
+
+- Next.js 16.2.9
+- React 19.2.4
+- React DOM 19.2.4
+- TypeScript 5.x
+- Tailwind CSS 4.x
+- Recharts
+- React Grid Layout
+- Lucide React
+- XLSX
+
+Backend Technologies
+
+- Python 3.10+
+- FastAPI
+- Uvicorn
+- Pydantic
+- DuckDB
+- Pandas
+- OpenPyXL
+- SQLAlchemy
+- PyJWT
+
+Database & Authentication Technologies
+
+- Supabase
+- PostgreSQL 15+
+- Supabase JavaScript Client
+- Supabase SSR
+
+Development Tools
+
+- Node.js 18+
+- npm 9+
+- Git
+- Visual Studio Code
+- ESLint
+- Postman / Thunder Client
+
+Operating System & Browser
+
+- Windows 10/11, macOS 12+ or Ubuntu 20.04+
+- Google Chrome, Microsoft Edge, Firefox or Safari
+
+Hardware Requirements
+
+Development Workstation
+
+- Processor: Intel Core i3 / AMD Ryzen 3 or higher
+- RAM: Minimum 8 GB, recommended 16 GB
+- Storage: Minimum 20 GB free space, SSD recommended
+- Display: 1280 x 720 minimum, Full HD recommended
+- Network: Stable broadband internet connection
+- Graphics: Integrated graphics sufficient
+
+Server / Deployment Requirements
+
+- Processor: Minimum 2 vCPU, recommended 4 vCPU
+- RAM: Minimum 4 GB, recommended 8 GB or higher
+- Storage: Minimum 20 GB SSD, recommended 50 GB SSD
+- Network: Stable high-speed internet connection
+- Operating System: Ubuntu 20.04 LTS or later
+
+3.5 PRELIMINARY PRODUCT DESCRIPTION
+
+- Secure Authentication: Provides secure user authentication through Supabase Authentication and maintains separate access to user projects and datasets.
+- Project Management: Allows users to create and manage projects for organizing multiple datasets.
+- Data Upload: Supports uploading CSV, TSV, Excel, and Parquet files for data analysis.
+- Data Profiling: Automatically analyzes uploaded datasets and displays information such as row count, column count, data types, missing values, duplicate records, and unique values.
+- Data Quality Analysis: Automatically identifies common data quality issues and presents the findings according to their severity.
+- Data Cleaning: Provides no-code operations for handling missing values, removing duplicates, renaming or deleting columns, changing data types, filtering rows, and performing string and numeric transformations.
+- Operation History: Maintains a history of cleaning operations and allows users to undo previous changes.
+- Relationship Detection: Identifies possible relationships between different tables by analyzing column names, values, and data patterns.
+- Semantic Model: Provides a logical view of related tables and allows users to approve, reject, or define relationships manually.
+- Auto Dashboard: Automatically generates suitable charts, KPI cards, and summary tables based on the uploaded data.
+- Dashboard Builder: Allows users to create customized dashboards by adding, resizing, arranging, and configuring different visualization components.
+- Data Visualization: Provides bar charts, line charts, pie/donut charts, scatter plots, KPI cards, and data tables for interactive analysis.
+- Query Engine: Uses DuckDB for efficient analytical query execution and supports analysis of large datasets without transferring complete datasets to the browser.
+- Report Generation: Allows users to export cleaned datasets and analytical results in CSV, XLSX, JSON, and Parquet formats.
+- User-Friendly Interface: Provides a clean and simple interface that allows users to perform data analysis and cleaning without requiring programming knowledge.
+- Responsive Interface: Provides a consistent user experience across desktops, laptops, and tablets.
+- Integrated Analytics: Combines data uploading, profiling, cleaning, relationship detection, visualization, dashboard creation, and reporting within a single platform.

@@ -19,6 +19,7 @@ Numbering conventions detected:
                                                      starter word like "The"/"Users")
     - some point / * some point      -> BULLET
     Term: description                  -> BULLET / REQUIREMENT with the term bolded
+    [figure: 3.3.1]                    -> FIGURE (inserts image + caption)
     tab-separated rows (2+ in a row)    -> TABLE (first row = header)
     anything else                       -> BODY text (merged into paragraphs)
 
@@ -52,6 +53,8 @@ NUMBERED = "numbered"
 REQUIREMENT = "requirement"
 TABLE = "table"
 BODY = "body"
+FIGURE = "figure"
+PAGEBREAK = "pagebreak"
 
 
 @dataclass
@@ -73,6 +76,8 @@ SECTION_RE = re.compile(r"^\d+\.\d+\s+\S.*$")              # 1.1 Background
 SINGLE_NUM_RE = re.compile(r"^(\d+)\.\s+(\S.*)$")           # 1. <text>
 BULLET_RE = re.compile(r"^[-*\u2022]\s+\S.*$")              # - item / * item
 CHAPTER_WORD_RE = re.compile(r"^CHAPTER\s+\d+", re.IGNORECASE)
+FIGURE_RE = re.compile(r"^\[figure:\s*([\d.]+)\]$", re.IGNORECASE)  # [figure: 3.3.1]
+PAGEBREAK_RE = re.compile(r"^\[pagebreak\]$", re.IGNORECASE)
 
 # I. / II. / III. / IV. ... up to a generous roman numeral length
 ROMAN_RE = re.compile(r"^([IVXLCDM]{1,6})\.\s+(\S.*)$")
@@ -213,6 +218,15 @@ def detect_structure(text: str) -> List[Token]:
             flush_table()
 
         line = stripped
+
+        # --- figure placeholder ---
+        fig_match = FIGURE_RE.match(line)
+        if fig_match:
+            flush_body()
+            tokens.append(Token(FIGURE, fig_match.group(1)))
+            last_meaningful_line = line
+            in_numbered_list = False
+            continue
 
         # --- subsection (X.Y.Z) ---
         if SUBSECTION_RE.match(line):

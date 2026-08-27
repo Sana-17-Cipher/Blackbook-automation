@@ -3,7 +3,7 @@ import re
 
 from docx.enum.text import WD_BREAK
 from docx.shared import Pt
-
+from ..figures import insert_figure
 from .structure_detector import (
     detect_structure,
     CHAPTER,
@@ -15,6 +15,7 @@ from .structure_detector import (
     REQUIREMENT,
     TABLE,
     BODY,
+    FIGURE,   
 )
 
 
@@ -23,7 +24,9 @@ def add_page_break(document):
     paragraph = document.add_paragraph()
     paragraph.add_run().add_break(WD_BREAK.PAGE)
 
-
+def add_figure(document, fig_number):
+    """Insert a figure image + bold centered caption for the given figure number."""
+    insert_figure(document, fig_number)
 def clean_inline_markdown(text):
     """
     Remove Markdown formatting markers, in case any slip through
@@ -294,6 +297,8 @@ def _render_tokens(document, tokens):
 
         elif token.type == BODY:
             add_body_paragraph(document, token.text)
+        elif token.type == FIGURE:
+            add_figure(document, token.text)
 
 
 # ---------------------------------------------------------------------

@@ -206,7 +206,7 @@ approach to transforming raw data into actionable information.
 
     document.save("output/cover_test.docx")
 
-    print("Cover page generated successfully!")
+    print("Document generated successfully: output/cover_test.docx")
 
 
 if __name__ == "__main__":

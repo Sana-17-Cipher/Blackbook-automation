@@ -131,3 +131,41 @@ Server / Deployment Requirements
 - User-Friendly Interface: Provides a clean and simple interface that allows users to perform data analysis and cleaning without requiring programming knowledge.
 - Responsive Interface: Provides a consistent user experience across desktops, laptops, and tablets.
 - Integrated Analytics: Combines data uploading, profiling, cleaning, relationship detection, visualization, dashboard creation, and reporting within a single platform.
+
+3.6 CONCEPTUAL MODELS
+
+3.6.1 EVENT TABLE
+
+Event Name	Actor	Trigger	System Response	Affected Modules
+User Login	User	User enters credentials or selects Google OAuth and clicks Sign In.	Authenticates the user through Supabase and verifies the authentication token.	Authentication Module
+Create Project	User	User enters project details and clicks Create Project.	Creates a new project for the authenticated user and initializes its data workspace.	Project Management Module
+Upload Dataset	User	User selects one or more supported data files and uploads them.	Validates the files, stores them on the server, imports the data into DuckDB, registers the tables, and starts automatic profiling.	Upload Module
+Auto Data Profiling	System	Automatically triggered after data upload or a cleaning operation.	Analyzes the dataset to determine row count, column count, data types, null values, distinct values, and other profile information.	Data Profiling / Overview Module
+Detect Data Quality Issues	System	Triggered during data profiling.	Identifies issues such as missing values, duplicate records, type inconsistencies, and outliers and classifies their severity.	Data Quality Module
+Apply Cleaning Operation	User	User selects and confirms a data cleaning operation.	Applies the selected transformation, records the operation, and refreshes the data profile and quality analysis.	Data Cleaning / Transform Module
+Undo Operation	User	User clicks Undo for a previous cleaning operation.	Restores the previous table state and updates the operation history and data profile.	Data Cleaning / Transform Module
+Detect Relationships	System / User	Triggered automatically or when the user selects Detect Relationships.	Analyzes tables, column values, and cardinality to identify possible relationships and generates confidence and coverage information.	Semantic Model Module
+Approve / Reject Relationship	User	User approves, rejects, or manually defines a relationship between tables.	Updates the relationship status and makes approved relationships available for cross-table analysis.	Semantic Model Module
+Build Dashboard	User	User creates a dashboard using Auto Dashboard or Dashboard Builder.	Generates or renders charts, KPI cards, and tables using queries through the unified query engine and saves the dashboard layout.	Dashboard / Visualization Module
+Export Data	User	User selects an export format and clicks Export.	Processes the selected table and generates the requested CSV, XLSX, JSON, or Parquet file for download.	Export / Report Module
+Delete Project	User	User selects Delete Project and confirms the action.	Deletes the project and its associated tables, relationships, operation history, dashboards, and project data files.	Project Management Module
+
+3.6.2 ENTITY RELATIONSHIP DIAGRAM
+
+[figure: 3.6.2]
+
+3.6.3 CLASS DIAGRAM
+
+[figure: 3.6.3]
+
+3.6.4 OBJECT DIAGRAM
+
+[figure: 3.6.4]
+
+3.6.5 USE CASE DIAGRAM
+
+[figure: 3.6.5]
+
+3.6.6 ACTIVITY DIAGRAM
+
+[figure: 3.6.6]

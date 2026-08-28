@@ -1,0 +1,88 @@
+SYSTEM DESIGN
+
+4.1 BASIC MODULES
+
+[content...]
+
+4.2 DATA DESIGN
+
+Cleanlytics uses a dual-database architecture. Supabase is used for authentication and application-level data such as users, projects, dashboard configurations, and report information. DuckDB is used for storing and processing the actual uploaded datasets within project-specific analytical databases. This separation keeps application data and analytical data independent and supports efficient data processing.
+
+4.2.1 SCHEMA DESIGN
+
+The data design consists of two parts: the Supabase application schema and the DuckDB analytical schema.
+
+A. Supabase Application Schema
+
+Supabase stores the persistent application information required to manage users and projects.
+
+Table 1: Users / Authentication
+
+Stores user authentication and profile information.
+
+Field	Description
+User ID	Unique identifier of the user
+Email	User email address
+Name	User display name
+Authentication details	Information required for user authentication
+
+Table 2: Projects
+
+Stores project and workspace information.
+
+Field	Description
+Project ID	Unique identifier of the project
+User ID	Identifies the project owner
+Project Name	Name assigned to the project
+Description	Optional project description
+Created At	Project creation timestamp
+Updated At	Last modification timestamp
+
+Table 3: Dashboard Configuration
+
+Stores saved dashboard information.
+
+Field	Description
+Dashboard ID	Unique dashboard identifier
+Project ID	Associated project
+Widgets	Chart and KPI configuration
+Layout	Position and size of dashboard widgets
+Updated At	Last dashboard update
+
+B. DuckDB Analytical Schema
+
+DuckDB stores the physical data uploaded by the user. Each project maintains an isolated analytical database containing the project's uploaded tables.
+
+Data Component	Description
+Raw Tables	Original uploaded dataset tables
+Profile Information	Column statistics, data types, null counts and distinct values
+Cleaned Data	Dataset after cleaning operations
+Transformed Data	Dataset after calculations, filtering, splitting, merging and summarisation
+Relationships	Detected or user-defined table relationships
+Snapshots	Previous table states used for undo operations
+Operation History	Record of data-processing operations
+
+4.2.2 DATA INTEGRITY AND CONSTRAINTS
+
+Cleanlytics maintains data integrity through the following mechanisms:
+
+- User and project isolation: Application data is associated with the authenticated user and project.
+- Project isolation: Each project uses its own DuckDB database, preventing accidental mixing of datasets between projects.
+- Referential relationships: Project-related records are associated with their corresponding project.
+- Unique identification: Users, projects, datasets, dashboards, and relationships use unique identifiers.
+- Input validation: Uploaded files and API requests are validated before processing.
+- Relationship validation: Detected table relationships include confidence and coverage information and can be reviewed by the user.
+- Operation safety: Snapshots are created before destructive data operations, allowing recent changes to be undone.
+- Authentication and access control: Supabase Authentication and Row Level Security help restrict access to authorized application data.
+
+4.3 USER INTERFACE DESIGN
+
+[content...]
+
+4.4 SECURITY ISSUES
+
+[content...]
+
+4.5 TEST CASES DESIGN
+
+[content...]

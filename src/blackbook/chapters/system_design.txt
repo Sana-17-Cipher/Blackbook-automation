@@ -154,7 +154,16 @@ Cleanlytics maintains data integrity through the following mechanisms:
 
 4.4 SECURITY ISSUES
 
-[content...]
+Security Issue	Description	Counter-Measure Implemented
+Unauthorized Access	Users may attempt to access another user's data or projects.	JWT-based authentication protects API endpoints, and requests are scoped to the authenticated user.
+Session Hijacking	A stolen authentication token could be used to impersonate a user.	JWT expiration is enforced and tokens are transmitted through the Authorization: Bearer header over HTTPS.
+Cross-Origin Attacks	Untrusted websites may attempt to access the backend API.	CORS is configured with explicitly allowed frontend origins.
+File Upload Attacks	Users may upload unsupported, oversized, or potentially unsafe files.	File extensions, MIME types, and file size are validated before processing.
+SQL Injection	Malicious input could affect dynamically generated DuckDB queries.	User inputs are validated and sanitized, while identifiers are safely quoted and query parameters are controlled.
+Data Loss	Failed cleaning or transformation operations may affect the dataset.	Automatic DuckDB snapshots are created before destructive operations, allowing recent changes to be undone.
+Cross-Project Data Leakage	Data from one project could potentially be accessed through another project.	Each project uses an isolated DuckDB database, and API access is checked against the authenticated user's project ownership.
+Invalid API Requests	Malformed requests may cause unexpected application behaviour.	API inputs are validated using Pydantic models before processing.
+Incomplete File Uploads	A failed large-file upload could leave partially processed data.	Files are first written to temporary storage and are processed into DuckDB only after successful upload and validation.
 
 4.5 TEST CASES DESIGN
 

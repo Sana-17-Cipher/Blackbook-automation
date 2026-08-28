@@ -167,4 +167,57 @@ Incomplete File Uploads	A failed large-file upload could leave partially process
 
 4.5 TEST CASES DESIGN
 
-[content...]
+The following test cases were designed to verify the major functional modules of Cleanlytics, including authentication, data ingestion, profiling, cleaning, transformation, relationship modelling, dashboard generation, reporting, and export.
+
+Test Condition	Input	Expected Result	Actual Result
+Google OAuth Login	Valid Google account	User authenticated and redirected to dashboard	Passed
+Upload CSV	Valid .csv file	Dataset uploaded and profiled successfully	Passed
+Upload Excel	Valid .xlsx file	Sheets extracted and processed as tables	Passed
+Upload TSV	Valid .tsv file	Dataset uploaded successfully	Passed
+Upload Parquet	Valid .parquet file	Dataset uploaded successfully	Passed
+Unsupported File	.pdf file	Unsupported file type error displayed	Passed
+Oversized File	File above 200 MB	Size-limit error displayed	Passed
+Empty File	Empty dataset	Appropriate warning displayed	Passed
+Multi-File Upload	Multiple supported files	Files uploaded successfully with progress	Passed
+Dataset Preview	Uploaded dataset	Data displayed in paginated grid	Passed
+Data Search	Search keyword	Matching records displayed	Passed
+Data Sorting	Numeric/text column	Data sorted correctly	Passed
+Data Quality Score	Profiled dataset	Quality score and quality details displayed	Passed
+Column Profiling	Selected column	Statistics and value information displayed	Passed
+Remove Duplicates	Dataset containing duplicates	Duplicate records removed	Passed
+Fill Missing Values	Column containing NULLs	Missing values replaced using selected method	Passed
+Trim Whitespace	Text column	Leading/trailing spaces removed	Passed
+Normalize Case	Inconsistent text values	Values normalized correctly	Passed
+Convert Blanks to NULL	Blank cells	Blank values converted to NULL	Passed
+Remove Outliers	Numeric column	Values outside IQR limits handled	Passed
+Convert Data Type	Text → Number	Column converted successfully	Passed
+Undo Operation	After cleaning operation	Previous dataset state restored	Passed
+Rename Column	Existing column	Column renamed successfully	Passed
+Split Column	Delimited text column	Values split into new columns	Passed
+Merge Columns	Multiple columns	Values combined into new column	Passed
+Derive Date Part	Date column	Required date component created	Passed
+Calculate Column	Price x Quantity	Correct calculated column created	Passed
+Zero-Division Handling	Column containing zero	Division handled without application failure	Passed
+Filter Rows	Condition such as Sales > 1000	Matching records retained	Passed
+Group By - Sum	Region + Sales	Total calculated for each group	Passed
+Group By - Average	Department + Salary	Average calculated correctly	Passed
+Group By - Count	Category	Record count calculated correctly	Passed
+Relationship Detection	Multiple related tables	Relationships detected with confidence scores	Passed
+Approve Relationship	Suggested relationship	Relationship approved successfully	Passed
+Reject Relationship	Suggested relationship	Relationship rejected successfully	Passed
+Manual Relationship	Selected tables/columns	Relationship created successfully	Passed
+Semantic Model	Multi-table project	Table roles and join graph displayed	Passed
+Cross-Table Query	Dimension + Measure	Query generated and results displayed	Passed
+Generate Chart	Selected dimensions/measures	Appropriate visualization generated	Passed
+Auto Dashboard	Processed dataset	Dashboard generated automatically	Passed
+Cross-Filtering	Select dashboard category	Related widgets updated	Passed
+Save Dashboard	Configured dashboard	Dashboard configuration saved	Passed
+Reload Dashboard	Saved dashboard	Saved layout and widgets restored	Passed
+Export CSV	Processed dataset	CSV downloaded successfully	Passed
+Export Excel	Processed dataset	XLSX downloaded successfully	Passed
+Export JSON	Processed dataset	JSON downloaded successfully	Passed
+Export Parquet	Processed dataset	Parquet downloaded successfully	Passed
+Generate Business Report	Processed dataset	Report generated with statistics and quality information	Passed
+Create Project	Project details	Project created successfully	Passed
+Delete Project	Existing project	Project and associated data removed	Passed
+Reprofile Dataset	Modified dataset	Updated profile and quality findings generated	Passed

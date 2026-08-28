@@ -169,3 +169,37 @@ Delete Project	User	User selects Delete Project and confirms the action.	Deletes
 3.6.6 ACTIVITY DIAGRAM
 
 [figure: 3.6.6]
+
+3.6.7 SEQUENCE DIAGRAM
+
+[figure: 3.6.7]
+
+3.6.8 STATE FLOW DIAGRAM
+
+[figure: 3.6.8]
+
+3.6.9 PACKAGE DIAGRAM
+
+[figure: 3.6.9]
+
+3.6.10 COMPONENT DIAGRAM
+
+[figure: 3.6.10]
+
+3.6.11 DEPLOYMENT DIAGRAM
+
+[figure: 3.6.11]
+
+3.6.12 DATA FLOW DIAGRAM
+
+[figure: 3.6.12.1]
+
+[figure: 3.6.12.2]
+
+[figure: 3.6.12.3]
+
+3.6.13 DATABASE SCHEMA DESIGN
+
+[figure: 3.6.13.1]
+
+[figure: 3.6.13.2]

@@ -1,8 +1,81 @@
 SYSTEM DESIGN
 
+The system design of Cleanlytics defines how the different modules work together to process data from initial upload to analysis, visualization, reporting, and export. The system follows a modular architecture in which the frontend communicates with the backend through REST APIs. DuckDB is used for analytical data processing, while Supabase is used for authentication and application-level data management.
+
 4.1 BASIC MODULES
 
-[content...]
+The Cleanlytics system is divided into interconnected modules that support the complete data analytics workflow.
+
+Authentication & Security Module
+
+- Provides secure user sign-up and login using Google OAuth 2.0.
+- Uses JWT-based authentication for secure API communication.
+- Manages authenticated user sessions.
+- Supports a local workspace mode for development when authentication is not configured.
+
+Data Ingestion Module
+
+- Allows users to upload datasets in CSV, TSV, TXT, Excel, and Parquet formats.
+- Validates uploaded files before processing.
+- Uses DuckDB for CSV, TSV, and Parquet data ingestion.
+- Uses Pandas for processing Excel workbooks and extracting individual sheets.
+
+Data Profiling & Quality Module
+
+- Analyses the structure and quality of uploaded datasets using DuckDB.
+- Calculates row counts, missing values, distinct values, and statistical measures.
+- Generates a Data Quality Score based on completeness, uniqueness, consistency, and validity.
+- Classifies columns into semantic roles such as Measure, Dimension, Category, Date, Identifier, and Location.
+- Provides quality findings and recommendations.
+
+Data Cleaning Module
+
+- Identifies and handles common data-quality problems such as missing values, duplicates, blank cells, whitespace, inconsistent cases, incorrect data types, and outliers.
+- Provides cleaning operations such as missing-value imputation, whitespace trimming, case normalization, duplicate removal, outlier removal, column removal, and type conversion.
+- Creates snapshots before data-changing operations to support undo functionality for recent operations.
+
+Data Transformation Module
+
+- Prepares cleaned data for further analysis.
+- Supports column renaming, splitting and merging columns, date-part extraction, calculated columns, row filtering, and group-by aggregation.
+- Allows users to perform transformations through the interface without directly writing SQL queries.
+
+Semantic Model & Relationship Module
+
+- Identifies possible relationships between tables using data-driven containment analysis.
+- Determines relationship direction and cardinality using value coverage and column characteristics.
+- Classifies tables as Fact, Dimension, Bridge, or Standalone where applicable.
+- Builds a JoinGraph for multi-table analysis.
+- Allows users to approve, reject, or manually create relationships.
+
+Project Management Module
+
+- Organizes datasets, relationships, operations, and dashboard configurations within individual projects.
+- Provides Create, Read, Update, and Delete (CRUD) operations for projects.
+- Maintains an isolated DuckDB database for each project.
+- Stores application-level project information through Supabase.
+
+Dashboard & Visualization Module
+
+- Provides interactive dashboards for analysing processed data.
+- Supports KPI cards and different visualizations such as Bar, Line, Area, Pie, Donut, Treemap, Radar, Funnel, Scatter, Radial Bar, Geographic Map, and other analytical views.
+- Provides an Auto Dashboard that selects suitable metrics and visualizations based on the available data.
+- Allows users to customize dashboard layouts and widgets.
+
+Report Generation Module
+
+- Generates executive-style business reports from the processed and analysed data.
+- Includes dataset summaries, key statistics, analytical findings, and data-quality information.
+- Allows users to specify report details such as title, organization, and author.
+- Provides print-optimized output that can be saved as a PDF.
+
+Data Export Module
+
+- Allows users to export cleaned and transformed datasets.
+- Supports CSV, Excel, JSON, and Parquet formats.
+- Uses DuckDB-based export operations to generate the required output files.
+- Provides downloadable results for individual project datasets.
+
 
 4.2 DATA DESIGN
 

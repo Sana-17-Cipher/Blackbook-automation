@@ -45,8 +45,70 @@ These techniques reduce unnecessary data movement and computation while improvin
 
 5.3 TESTING APPROACH
 
+Testing was performed to verify the correctness, reliability, and integration of the major CLEANYTICS modules. Testing covered dataset ingestion, profiling, data-quality analysis, cleaning, transformation, relationship discovery, semantic querying, visualization, dashboard generation, reporting, and export.
+
+Different datasets were used, including datasets containing missing values, duplicate records, inconsistent values, outliers, and normally formatted data. The actual results were compared with the expected results to verify functional correctness.
+
+The testing was divided into:
+
+- Unit Testing: Verification of individual functions and operations.
+- Integration Testing: Verification of communication between connected modules.
+- System Testing: Verification of the complete application as an integrated system.
+
 5.3.1 UNIT TESTING
+
+Unit testing was performed on individual functions and components before integration. The major areas tested were:
+
+- Data Ingestion: Verified supported file formats, file validation, table creation, and dataset loading.
+- Data Profiling: Verified row counts, column information, null counts, distinct values, and statistical calculations.
+- Data Cleaning: Tested missing-value imputation, duplicate removal, whitespace trimming, case normalization, type conversion, and outlier removal.
+- Data Transformation: Tested date-part extraction, calculated columns, column splitting and merging, filtering, renaming, and aggregation.
+- Relationship Analysis: Verified containment calculation, relationship direction, cardinality, and confidence scoring.
+- Semantic Querying: Verified query generation, aggregations, filtering, and multi-table joins.
+- Visualization: Tested KPI cards and supported chart types using different dimensions and measures.
+- Export & Reporting: Verified generation of processed datasets and business reports in the supported output formats.
+
+Unit testing helped identify errors within individual operations before they affected the complete application.
+
 5.3.2 INTEGRATION TESTING
+
+Integration testing verified the interaction between the major components of CLEANYTICS.
+
+The following integrations were tested:
+
+- Frontend to REST API: Verified that user actions generate valid API requests and receive the expected responses.
+- REST API to FastAPI: Verified request routing, validation, authentication, and backend processing.
+- FastAPI to DuckDB: Verified dataset ingestion, SQL execution, cleaning, transformation, and analytical queries.
+- Profiling to Data Quality: Verified that profiling results are correctly used to identify quality issues and calculate quality information.
+- Relationship Discovery to Semantic Querying: Verified that detected relationships and the JoinGraph are used for valid multi-table queries.
+- Semantic Querying to Dashboard: Verified that query results are correctly mapped to measures, dimensions, KPIs, and charts.
+- Processed Data to Reporting & Export: Verified that the latest processed data is used for report generation and data export.
+- Authentication to Project Access: Verified that authenticated users can access only their permitted project resources.
+
+Integration testing ensured that data and control flow correctly between the connected modules.
+
 5.3.3 SYSTEM TESTING
+
+System testing was performed on the complete CLEANYTICS application to verify its overall functionality and behaviour.
+
+Testing covered:
+
+- Authentication and protected application access.
+- Upload and validation of supported datasets.
+- Dataset profiling and quality analysis.
+- Cleaning and transformation operations.
+- Snapshot-based undo functionality.
+- Multi-table relationship discovery.
+- Semantic querying and aggregation.
+- Dashboard and visualization generation.
+- Business report generation.
+- Data export in supported formats.
+- Project creation, retrieval, and deletion.
+- Handling of invalid inputs and processing errors.
+- Consistency of processed data across the application.
+
+The system was tested with both normal and problematic datasets to verify that expected results were produced and that invalid operations were handled appropriately.
+
+Overall, system testing confirmed the functional integration of the major CLEANYTICS components and verified that the implemented modules operate correctly as a complete analytics application.
 
 5.4 MODIFICATIONS AND IMPROVEMENTS

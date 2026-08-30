@@ -187,28 +187,26 @@ approach to transforming raw data into actionable information.
     render_markdown(
     document,
     "src/blackbook/chapters/introduction.md")
-    document.add_page_break()
     render_plain_text_file(
        document,
        "src/blackbook/chapters/survey_of_technologies.txt"
    )
-    document.add_page_break()
     render_plain_text_file(
            document,
            "src/blackbook/chapters/requirement_analysis.txt"
        )
-    document.add_page_break()
     render_plain_text_file(
         document,
         "src/blackbook/chapters/system_design.txt"
     )
-    
+    render_plain_text_file(document, "src/blackbook/chapters/implementation_and_testing.txt")
     
     
 
 
 
     document.save("output/cover_test.docx")
+
 
     print("Document generated successfully: output/cover_test.docx")
 

@@ -1,0 +1,52 @@
+CHAPTER 5: IMPLEMENTATION AND TESTING
+
+5.1 IMPLEMENTATION APPROACH
+
+Project Summary
+
+Cleanlytics is an end-to-end Data Analytics and Business Intelligence platform developed to simplify the process of preparing, analysing, visualising, and reporting data. The system accepts raw datasets and processes them through data ingestion, profiling, quality analysis, relationship discovery, cleaning, transformation, semantic querying, dashboard generation, reporting, and export.
+
+The system is implemented using a Next.js and React frontend with a FastAPI backend. DuckDB is used for analytical data processing, while the application metadata and authentication layers are handled separately. The frontend communicates with the backend through REST APIs.
+
+The complete implementation follows the workflow:
+
+Upload Dataset -> Profile & Quality Analysis -> Clean Data -> Transform Data -> Relationship / Semantic Analysis -> Dashboard & Visualization -> Business Report -> Export Results
+
+The system supports CSV, TSV, TXT, Excel, and Parquet datasets. Uploaded data is processed as project-specific DuckDB tables. Cleaning and transformation operations are performed on the data, while the semantic layer supports relationship discovery and multi-table analysis.
+
+5.2 CODING DETAILS AND CODE EFFICIENCY
+
+Cleanlytics follows a modular coding approach in which different responsibilities are separated into individual modules. The backend is implemented using Python, FastAPI, and Pydantic, while the frontend uses Next.js, React, TypeScript, and related UI libraries.
+
+The main coding areas include:
+
+- Data & Query Processing: DuckDB-based ingestion, querying, profiling, and analytical processing.
+- API Layer: FastAPI REST endpoints for communication between the frontend and backend.
+- Data Operations: Modules for cleaning, transformation, aggregation, and relationship analysis.
+- Metadata Management: Management of projects, tables, relationships, and other application information.
+- Authentication: User authentication and JWT verification.
+- Frontend Components: Separate components for upload, cleaning, transformation, dashboard, and report generation.
+
+The modular structure makes the system easier to maintain, debug, extend, and test. Reusable functions and components are used wherever possible to avoid unnecessary duplication.
+
+5.2.1 CODE EFFICIENCY
+
+Code optimization was performed to improve execution speed, memory usage, response time, and overall system performance. The following techniques are used:
+
+- SQL Pushdown: Analytical calculations are performed directly in DuckDB instead of processing every row through Python.
+- Batch Processing: Profiling operations are divided into manageable batches to control query size.
+- Bounded Data Retrieval: Only the required results are returned to the frontend instead of transferring complete datasets.
+- Efficient Relationship Discovery: Distinct values and containment analysis are used to reduce unnecessary table comparisons.
+- JoinGraph-Based Querying: Valid relationship paths are used for multi-table queries, reducing incorrect joins and fan-out.
+- Snapshot-Based Undo: Snapshots allow previous states to be restored without re-processing the original dataset.
+- Memory Control: DuckDB configuration and controlled query processing help manage memory usage during analytical operations.
+
+These techniques reduce unnecessary data movement and computation while improving the efficiency of dataset processing and analytical queries.
+
+5.3 TESTING APPROACH
+
+5.3.1 UNIT TESTING
+5.3.2 INTEGRATION TESTING
+5.3.3 SYSTEM TESTING
+
+5.4 MODIFICATIONS AND IMPROVEMENTS

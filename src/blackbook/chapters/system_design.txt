@@ -1,4 +1,4 @@
-SYSTEM DESIGN
+CHAPTER 4: SYSTEM DESIGN
 
 The system design of Cleanlytics defines how the different modules work together to process data from initial upload to analysis, visualization, reporting, and export. The system follows a modular architecture in which the frontend communicates with the backend through REST APIs. DuckDB is used for analytical data processing, while Supabase is used for authentication and application-level data management.
 

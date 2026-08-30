@@ -259,29 +259,24 @@ def render_plain_text_file(document, text_file):  # e.g. "introduction.txt"
 
 
 def _render_tokens(document, tokens):
-    first_heading_seen = False
+    section_seen = False
 
     for token in tokens:
         if token.type == CHAPTER:
-            # A chapter heading never triggers a page break itself;
-            # whatever chapter/section came before it already
-            # ended on its own page (via the section rule below).
+            add_page_break(document)
             add_heading(document, token.text, 1)
-            first_heading_seen = True
 
         elif token.type == SECTION:
-            if first_heading_seen:
+            if section_seen:
                 add_page_break(document)
-            first_heading_seen = True
+            section_seen = True
             add_heading(document, token.text, 2)
 
         elif token.type == SUBSECTION:
             add_heading(document, token.text, 3)
-            first_heading_seen = True
 
         elif token.type == SUBHEADING:
             add_subheading(document, token.text)
-            first_heading_seen = True
 
         elif token.type == BULLET:
             add_bullet(document, token.text, bold_prefix=token.bold_prefix)
@@ -297,6 +292,7 @@ def _render_tokens(document, tokens):
 
         elif token.type == BODY:
             add_body_paragraph(document, token.text)
+
         elif token.type == FIGURE:
             add_figure(document, token.text)
 

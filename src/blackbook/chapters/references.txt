@@ -1,0 +1,15 @@
+REFERENCES
+
+1. DuckDB Documentation - DuckDB SQL engine, analytical data processing, data import/export, and query execution. Available at: https://duckdb.org/docs/stable/
+
+2. Pandas Documentation - Pandas library used for data manipulation and processing, particularly for Excel data handling. Available at: https://pandas.pydata.org/docs/
+
+3. Supabase Documentation - Supabase authentication, client libraries, and application services used in Cleanlytics. Available at: https://supabase.com/docs
+
+4. Recharts Documentation - Recharts library used for interactive data visualisation and dashboard charts. Available at: https://recharts.github.io/en-US/guide/
+
+5. AutoClean - Python package for Automated Data Preprocessing and Cleaning, GitHub repository by Elise Mercury. Available at: https://github.com/elisemercury/AutoClean
+
+6. GrimoireLab - Platform for Software Development Analytics and Insights, CHAOSS, GitHub repository. Available at: https://github.com/chaoss/grimoirelab
+
+7. GrimoireLab Website - Reference for software development analytics, data enrichment, visualisation, and reporting. Available at: https://chaoss.github.io/grimoirelab/

@@ -2,6 +2,36 @@ CHAPTER 7: CONCLUSION
 
 7.1 CONCLUSION
 
+Cleanlytics is an end-to-end, no-code Data Analytics and Business Intelligence platform designed to simplify the complete data analysis workflow. The system allows users to upload datasets, profile and assess data quality, clean and transform data, discover relationships between tables, build a semantic model, perform multi-table analysis, generate interactive dashboards, create business reports, and export processed results.
+
+The key strength of Cleanlytics is its Analytical and Semantic Layer, which considers both the technical characteristics and analytical meaning of the data. The semantic query layer generates controlled DuckDB queries for analytical operations while helping reduce problems such as incorrect joins, fan-out, and double counting.
+
+Overall, Cleanlytics combines data preparation, analysis, visualisation, and reporting into a single platform. It reduces the need for users to manually write SQL or depend on multiple separate tools for the complete data analytics workflow.
+
 7.2 LIMITATIONS OF THE SYSTEM
 
+Although Cleanlytics provides a complete analytics workflow, the current implementation has some limitations:
+
+- Limited Automated Testing: Current automated tests cover selected dashboard, geographic, and chart functionality. More extensive testing is required for uploads, cleaning, relationship discovery, and complete end-to-end workflows.
+- Geographic Analysis Limitation: The current geographic visualisation supports a predefined set of Indian states and cities rather than general global geographic data.
+- Limited Custom Dashboard Interaction: The current dashboard builder uses a responsive grid, but advanced drag-and-drop and individual widget resizing can be further improved.
+- Limited Widget Validation: Saved dashboard configurations have limited runtime schema validation and do not currently include explicit versioning.
+- Local Analytical Storage: Project datasets are stored in local project-specific DuckDB files. Therefore, deployment without persistent storage may result in loss of uploaded datasets.
+- Single-Writer Consideration: DuckDB updates require an appropriate single-writer strategy for reliable production deployment.
+- Legacy Backend Code: The project contains an older Pandas-based backend implementation alongside the current analytical engine, which can increase maintenance complexity.
+
 7.3 FUTURE SCOPE OF THE PROJECT
+
+Cleanlytics can be further enhanced into a more powerful and scalable Business Intelligence platform. The major areas of future development include:
+
+- Advanced AI-Powered Analytics: Natural-language queries, automated insights, anomaly explanations, business recommendations, and conversational data analysis can be integrated.
+- Advanced Dashboard Builder: Future versions can provide fully drag-and-drop and resizable dashboards with greater control over widget positioning and configuration.
+- Global Geographic Analytics: Geographic analysis can be extended to support countries, states, cities, coordinates, and global map visualisations.
+- Real-Time & Automated Data Sources: The system can be extended to support APIs, external databases, and cloud storage as continuous data sources instead of relying mainly on uploaded files.
+- Enterprise Cloud Deployment: Persistent cloud storage, automated backups, scalable infrastructure, and multi-user collaboration can be introduced for enterprise use.
+- Advanced Semantic Layer: Future versions can support user-defined business metrics, calculated measures, custom relationships, and reusable business definitions.
+- Improved Testing & Reliability: A comprehensive automated testing framework can be developed covering frontend, backend, data processing, authentication, query generation, and end-to-end workflows.
+- Report Automation: Scheduled report generation, automated PDF/Excel reports, and controlled report sharing can be added.
+- Scalability Improvements: The system can be further optimised for very large datasets and concurrent users through scalable cloud infrastructure and distributed processing.
+
+In the future, Cleanlytics can evolve from a project-based analytics application into an AI-assisted Business Intelligence platform that combines data preparation, semantic modelling, automated analytics, interactive dashboards, and intelligent reporting in a single system.

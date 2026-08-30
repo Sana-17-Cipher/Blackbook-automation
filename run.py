@@ -200,7 +200,9 @@ approach to transforming raw data into actionable information.
         "src/blackbook/chapters/system_design.txt"
     )
     render_plain_text_file(document, "src/blackbook/chapters/implementation_and_testing.txt")
-    
+    render_plain_text_file(document, "src/blackbook/chapters/results_and_discussion.txt")
+    render_plain_text_file(document, "src/blackbook/chapters/conclusion.txt")
+    render_plain_text_file(document, "src/blackbook/chapters/references.txt")
     
 
 

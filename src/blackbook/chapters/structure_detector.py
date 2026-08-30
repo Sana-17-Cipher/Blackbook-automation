@@ -55,7 +55,7 @@ TABLE = "table"
 BODY = "body"
 FIGURE = "figure"
 PAGEBREAK = "pagebreak"
-
+REFERENCE = "reference"
 
 @dataclass
 class Token:
@@ -78,7 +78,8 @@ BULLET_RE = re.compile(r"^[-*\u2022]\s+\S.*$")              # - item / * item
 CHAPTER_WORD_RE = re.compile(r"^CHAPTER\s+\d+", re.IGNORECASE)
 FIGURE_RE = re.compile(r"^\[figure:\s*([\d.]+)\]$", re.IGNORECASE)  # [figure: 3.3.1]
 PAGEBREAK_RE = re.compile(r"^\[pagebreak\]$", re.IGNORECASE)
-
+# 1. Title - description. Available at: URL
+REFERENCE_RE = re.compile(r"^\d+\.\s+(.+?)\s-\s(.+)$")
 # I. / II. / III. / IV. ... up to a generous roman numeral length
 ROMAN_RE = re.compile(r"^([IVXLCDM]{1,6})\.\s+(\S.*)$")
 
@@ -88,6 +89,7 @@ REQUIREMENT_STOP_WORDS = {
     "The", "A", "An", "This", "That", "These", "Those", "Users",
     "It", "Non-technical", "All", "Each", "Every",
 }
+
 
 
 def _uppercase_ratio(text: str) -> float:
@@ -275,6 +277,15 @@ def detect_structure(text: str) -> List[Token]:
             bold_prefix, rest = _split_requirement_label(numeral, content)
             display_text = f"{bold_prefix} {rest}" if bold_prefix else line
             tokens.append(Token(REQUIREMENT, display_text, bold_prefix=bold_prefix))
+            last_meaningful_line = line
+            in_numbered_list = False
+            continue
+                # --- reference entry: "1. Title - description. Available at: URL" ---
+        ref_match = REFERENCE_RE.match(line)
+        if ref_match and "Available at:" in line:
+            flush_body()
+            title, rest = ref_match.groups()
+            tokens.append(Token(REFERENCE, rest.strip(), bold_prefix=title.strip()))
             last_meaningful_line = line
             in_numbered_list = False
             continue

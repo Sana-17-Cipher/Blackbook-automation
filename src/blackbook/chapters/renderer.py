@@ -16,6 +16,7 @@ from .structure_detector import (
     TABLE,
     BODY,
     FIGURE,   
+    REFERENCE, 
 )
 
 
@@ -246,6 +247,8 @@ def render_plain_text(document, text):
     tokens = detect_structure(text)
     _render_tokens(document, tokens)
 
+    
+
 
 def render_plain_text_file(document, text_file):  # e.g. "introduction.txt"
     """Same as render_plain_text, but reads the content from a file."""
@@ -256,6 +259,32 @@ def render_plain_text_file(document, text_file):  # e.g. "introduction.txt"
 
     text = text_path.read_text(encoding="utf-8")
     render_plain_text(document, text)
+
+def add_reference(document, text, bold_prefix=None):
+    """
+    Render a reference/citation entry with a bold title and a
+    hanging indent, e.g.:
+
+    DuckDB Documentation - DuckDB SQL engine, analytical data
+        processing... Available at: https://duckdb.org/docs/stable/
+    """
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.left_indent = Pt(18)
+    paragraph.paragraph_format.first_line_indent = Pt(-18)
+    paragraph.paragraph_format.space_after = Pt(8)
+    paragraph.paragraph_format.line_spacing = 1.15
+
+    if bold_prefix:
+        bold_run = paragraph.add_run(clean_inline_markdown(bold_prefix) + " - ")
+        bold_run.bold = True
+        bold_run.font.size = Pt(12)
+        bold_run.font.name = "Times New Roman"
+
+    rest_run = paragraph.add_run(clean_inline_markdown(text))
+    rest_run.font.size = Pt(12)
+    rest_run.font.name = "Times New Roman"
+
+    return paragraph
 
 
 def _render_tokens(document, tokens):
@@ -295,6 +324,8 @@ def _render_tokens(document, tokens):
 
         elif token.type == FIGURE:
             add_figure(document, token.text)
+        elif token.type == REFERENCE:
+            add_reference(document, token.text, bold_prefix=token.bold_prefix)
 
 
 # ---------------------------------------------------------------------

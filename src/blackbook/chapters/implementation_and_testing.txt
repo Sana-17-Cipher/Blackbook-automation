@@ -112,3 +112,37 @@ The system was tested with both normal and problematic datasets to verify that e
 Overall, system testing confirmed the functional integration of the major CLEANYTICS components and verified that the implemented modules operate correctly as a complete analytics application.
 
 5.4 MODIFICATIONS AND IMPROVEMENTS
+
+During the development of Cleanlytics, several modifications were made to improve data processing, security, usability, and analytical capabilities.
+
+5.4.1 ANALYTICAL DATA STORAGE
+
+The initial implementation stored uploaded data as JSON in SQLite. This was changed to a separate architecture where DuckDB handles the actual analytical dataset, while application metadata remains separate. Each project uses its own DuckDB database, improving analytical processing and data isolation.
+
+5.4.2 AUTHENTICATION AND SECURITY
+
+Authentication was migrated to Supabase Authentication, providing JWT-based sessions and server-side token verification. Project ownership checks were also strengthened so that project and table resources are accessible only to the authenticated user.
+
+5.4.3 MULTI-FILE DATASET SUPPORT
+
+The upload module was modified to support multiple files within the same project. This allows related datasets to be stored as separate tables and analysed together. Excel worksheet support, duplicate-file detection, and upload progress tracking were also added.
+
+5.4.4 SEMANTIC DATA PROFILING
+
+The profiling system was enhanced from basic database-type detection to semantic classification of columns into roles such as Measure, Dimension, Time, Identifier, Geographic, Category, Boolean, and Text. Additional statistical information is also generated to support subsequent analysis and dashboard generation.
+
+5.4.5 SNAPSHOT-BASED UNDO
+
+A snapshot-based undo mechanism was introduced for data operations. Before destructive changes, the current table state is saved, allowing recent operations to be reversed. Up to five recent snapshots are maintained along with operation history.
+
+5.4.6 DATA-DRIVEN RELATIONSHIP DETECTION
+
+Relationship detection was improved by comparing actual column values and containment rather than relying mainly on column uniqueness. The system evaluates relationship direction and confidence, improving the reliability of multi-table analysis.
+
+5.4.7 SEMANTIC DASHBOARD GENERATION
+
+The dashboard was changed from using hardcoded example content to using the semantic information generated during profiling. It can identify measures, time columns, and categorical dimensions to generate relevant KPIs, charts, breakdowns, and leaderboards.
+
+5.4.8 SERVER-SIDE TRANSFORMATION
+
+Data transformation execution was moved to the backend, with the frontend sending the selected operation to the applyOperation API. The backend performs the operation and returns the updated result, ensuring that the displayed result represents the actual server-side processing.

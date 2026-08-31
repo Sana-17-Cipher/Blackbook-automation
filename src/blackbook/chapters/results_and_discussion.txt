@@ -2,4 +2,192 @@ CHAPTER 6: RESULTS AND DISCUSSION
 
 6.1 TEST REPORTS
 
-6.2 USER DOCUMENTATION
+6.2 User Documentation
+
+The Cleanlytics user interface guides the user through the complete data-analysis workflow, from uploading a dataset to generating dashboards and reports. This section describes the major screens and their usage.
+
+6.2.1 Navigating the Application
+
+The application is divided into a left sidebar and a main content area.
+
+- Data sources, Model, and Dashboard screens are available whenever a project is open
+- Analysis, Rows, Quality, Reshape, and Report screens additionally require at least one table to be loaded
+- Disabled items appear dimmed and cannot be clicked
+- A badge next to Quality shows the number of open quality findings
+- A badge next to Model shows the number of pending (unreviewed) relationships
+
+6.2.2 Login
+
+Purpose: Authenticate before accessing any project data.
+
+- Enter the registered email address and password
+- Click Sign in
+- On success, the user is redirected to the main application
+
+[figure: 6.2.2.1]
+[figure: 6.2.2.2]
+
+6.2.3 Data Sources
+
+Purpose: Upload data files and manage the tables belonging to the active project.
+
+Uploading Files
+- Click inside the drop zone or drag one or more files onto it
+- Files appear in the upload queue below the drop zone
+- Remove any unwanted file by clicking the × beside it
+- Click Load N files
+- A progress bar shows upload progress, then switches to "Reading the data and analysing it"
+- On completion, new table cards appear and the app navigates to the Analysis screen
+
+Deleting a Table
+- Hover over the table card to remove
+- Click the trash icon in the top-right of the card
+- Confirm removal in the dialog that appears
+- Warning: deleting a table removes all rows, operation history, and derived columns permanently
+
+Creating a New Project
+- Click the + button in the Projects section at the bottom of the sidebar
+- Enter a project name in the dialog box
+- Click Create — the new project opens with an empty Data Sources screen
+
+[figure: 6.2.3.1]
+[figure: 6.2.3.2]
+[figure: 6.2.3.3]
+
+6.2.4 Analysis
+
+Purpose: Inspect the statistical profile of the active table — overall quality score, per-column classification, and data distribution.
+
+Expanding a column shows:
+- Classification reasoning (e.g., "Numeric values above a currency threshold — 87% confident")
+- Aggregation default (e.g., sum, count_distinct)
+- Numeric columns: box-plot spread (min, Q1, median, Q3, max), standard deviation
+- Categorical columns: top-6 values with frequency bars
+- Text hygiene: counts of padded values, case variants, blank strings
+
+[figure: 6.2.4.1]
+[figure: 6.2.4.2]
+
+6.2.5 Rows
+
+Purpose: Browse and paginate the raw data of the active table.
+
+- Click a column header once to sort ascending
+- Click again to sort descending
+- A third click removes the sort
+
+[figure: 6.2.5]
+
+6.2.6 Quality
+
+Purpose: Review automatically detected data quality issues and apply repairs.
+
+Applying a Fix
+- Read the finding title and detail
+- Review available action rows, each showing the operation label and its exact consequence
+- Click Apply next to the chosen action
+- Actions marked "removes data" require a second Confirm click
+- A green outcome bar confirms the result and shows row counts before and after
+
+Undoing a Change
+- Click Undo last change at the top-right of the screen
+- The table is restored to its state before the most recent operation
+- Up to 5 levels of undo are available per table
+
+[figure: 6.2.6.1]
+[figure: 6.2.6.2]
+
+6.2.7 Reshape
+
+Purpose: Create new columns and reshape data without writing code.
+
+Derive Column
+Extracts a part of a date column into a new column.
+
+Date Part	Example
+Year	2024
+Quarter	2024-Q1
+Month	2024-03
+Month Name	March
+Day of Week	Monday
+Week	2024-W12
+
+Steps: Select date column → Select date part → Enter column name → Add Column
+
+Calculate
+Performs arithmetic between two columns, or a column and a constant.
+Operations: Add, Subtract, Multiply, Divide
+Steps: Select source column → Select operation → Select column/constant → Enter column name → Calculate
+
+Text
+Modifies and standardises text columns.
+Operations: Rename, Trim Whitespace, Uppercase, Lowercase
+Steps: Select column → Select operation → Enter required value → Apply
+
+Summarise (Group By)
+Groups records and applies aggregations to create a summary table.
+Aggregations: Total, Average, Median, Lowest, Highest, Count of Rows, Count of Distinct Values
+Steps: Select group-by column(s) → Add aggregation(s) → Select numeric column → Select aggregation → Summarise
+
+[figure: 6.2.7]
+
+6.2.8 Model
+
+Purpose: Review the data model — how tables relate to each other, their roles, and suggested analyses.
+
+Approving or Rejecting a Relationship
+- Click Detect relationships to run the scan; new suggestions appear as cards
+- Confidence indicates how likely the link is correct (name similarity + data evidence)
+- Coverage indicates what proportion of foreign-key values match the parent
+- Click Approve to include the link, or Reject to dismiss it
+- Approved relationships unlock cross-table queries in Dashboard and Report screens
+
+Running a Suggested Analysis
+- Click Run next to a suggested analysis
+- A results table appears below the card, showing the query output
+
+[figure: 6.2.8]
+
+6.2.9 Dashboard
+
+Purpose: Visualise data through automatically generated and custom charts.
+
+Applying a Cross-filter
+- Click on any bar, slice, or data point in the auto-dashboard
+- A filter chip appears at the top (e.g., "Region: North America ×")
+- All panels update to show only that subset
+- Click × on the chip to clear the filter
+
+Changing the Breakdown View
+- In the breakdown panel, click the view mode selector (Auto, Map, Donut, Treemap, Bubbles, Radial, Waffle, Table, KPI)
+- The visualisation updates immediately
+
+Adding a Custom Widget
+- Scroll to the Custom Dashboard Builder section
+- Click Add widget
+- Fill in the form: Chart type (Bar, Line, Area, Scatter, Pie, Radar, Funnel, Treemap), Dimension, Measure, Aggregation (Total, Average, Median, Lowest, Highest, Count, Count distinct), Limit, Title
+- Click Save — the widget appears on the canvas and its layout is saved automatically
+
+Removing a Widget
+- Click the trash icon on the widget card
+
+[figure: 6.2.9]
+
+6.2.10 Report
+
+Purpose: Generate a printable report combining the data quality summary and analysis sections.
+
+- Navigate to the Report screen
+- Report sections load automatically (may take a few seconds while queries run)
+- Enter a Report title, Organisation, and Author name
+- Click Print to PDF
+- The browser opens its print dialog — choose Save as PDF to export
+
+6.2.11 Error Messages and Resolutions
+
+Error Message	Cause	Resolution
+"Sign in to continue"	User session expired or no authentication token available	Reload the page and sign in again
+"Project not found"	Project was deleted or no longer available in the current session	Refresh the page and select the project again
+"The upload failed"	File format unsupported, file corrupted, or exceeds permitted size	Check the file format and size, then upload again
+"That change could not be applied"	A server-side data operation failed, such as division by zero	Correct the operation parameters and try again
+"Could not undo"	No snapshot available, or required snapshot no longer available	Undo history is limited to the most recent five operations

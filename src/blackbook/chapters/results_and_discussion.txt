@@ -1,6 +1,36 @@
 CHAPTER 6: RESULTS AND DISCUSSION
 
-6.1 TEST REPORTS
+6.1 Test Reports
+
+Testing was performed to verify the correctness of selected Cleanlytics frontend logic and backend analytical functionality. The executed test cases focused on dashboard visualization selection, geographic data handling, chart configuration, and automatic relationship detection.
+
+The results were recorded by comparing the expected behaviour with the actual system output.
+
+6.1.1 Frontend Test Cases
+
+Test Case ID	Test Description	Expected Result	Actual Result	Status
+TC-UI-01	Verify selection of an appropriate breakdown view for categorical data.	Suitable visualization should be selected for category counts.	Appropriate visualization selected successfully.	PASS
+TC-UI-02	Verify fallback to a tabular view for unsuitable part-to-whole data.	Table view should be used when a pie/donut chart is unsuitable.	Tabular view rendered successfully.	PASS
+TC-UI-03	Verify chart catalogue and geographic visualization restrictions.	Supported charts should be available and geographic charts restricted to valid location data.	Chart catalogue and geographic restrictions worked correctly.	PASS
+TC-UI-04	Verify location recognition in the sales dashboard.	Valid location values should be recognized correctly.	Location values recognized successfully.	PASS
+TC-UI-05	Verify custom chart builder catalogue.	Chart options should be displayed without duplicate entries.	Unique chart catalogue displayed successfully.	PASS
+
+6.1.2 Backend Test Cases
+
+The backend tests focused on automatic relationship detection between related tables using data-driven containment analysis.
+
+Test Case ID	Test Description	Expected Result	Actual Result	Status
+TC-BE-01	Detect relationship between Sales and Customers.	Sales.Customer_ID to Customers.Customer_ID should be detected as a Many-to-One relationship.	Relationship detected with 1.0 confidence and approved successfully.	PASS
+TC-BE-02	Detect relationship between Sales and Products.	Sales.Product_ID to Products.Product_ID should be detected as a Many-to-One relationship.	Relationship detected with 1.0 confidence and approved successfully.	PASS
+
+6.1.3 Summary of Test Execution
+
+Total Test Cases Executed: 7
+Test Cases Passed: 7
+Test Cases Failed: 0
+Pass Percentage: 100%
+
+The executed test cases passed successfully and verified the selected dashboard logic, visualization behaviour, geographic handling, custom chart catalogue, and automatic relationship detection implemented in Cleanlytics.
 
 6.2 User Documentation
 

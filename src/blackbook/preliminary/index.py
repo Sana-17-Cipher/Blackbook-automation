@@ -103,3 +103,46 @@ def add_index_page(document, data):
                 11,
                 bold=item.get("bold", False)
             )
+
+def add_figures_page(document, data):
+
+    document.add_page_break()
+
+    for _ in range(3):
+        document.add_paragraph()
+
+    p = document.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("LIST OF FIGURES")
+    apply_font(r, 16, bold=True)
+
+    document.add_paragraph()
+
+    rows = data.get("figures_index", [])
+
+    table = document.add_table(rows=1, cols=3)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
+
+    widths = [Cm(1.5), Cm(11.3), Cm(2.5)]
+    headers = ["Sr\nNo", "FIGURE TITLE", "PAGE\nNO."]
+
+    for i, header in enumerate(headers):
+        cell = table.rows[0].cells[i]
+        cell.width = widths[i]
+        cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+        p = cell.paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = p.add_run(header)
+        apply_font(r, 11, bold=True)
+
+    for item in rows:
+        cells = table.add_row().cells
+        values = [item.get("sr", ""), item.get("title", ""), item.get("page", "")]
+        for i, value in enumerate(values):
+            cells[i].width = widths[i]
+            cells[i].vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            p = cells[i].paragraphs[0]
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT if i == 1 else WD_ALIGN_PARAGRAPH.CENTER
+            r = p.add_run(str(value))
+            apply_font(r, 11)

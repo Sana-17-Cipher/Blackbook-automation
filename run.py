@@ -1,3 +1,4 @@
+from src.blackbook.document import create_document
 from src.blackbook.config import BlackbookConfig
 from src.blackbook.document import create_document
 from src.blackbook.preliminary.cover import add_cover_page
@@ -5,7 +6,7 @@ from src.blackbook.preliminary.certificate import add_certificate_page
 from src.blackbook.preliminary.declaration import add_declaration_page
 from src.blackbook.preliminary.acknowledgement import add_acknowledgement_page
 from src.blackbook.preliminary.abstract import add_abstract_page
-from src.blackbook.preliminary.index import add_index_page
+from src.blackbook.preliminary.index import add_figures_page, add_index_page
 from src.blackbook.chapters.renderer import render_markdown
 from src.blackbook.chapters.renderer import render_plain_text_file
 def main():
@@ -58,135 +59,96 @@ integrated workflow from raw data to meaningful insights.
 approach to transforming raw data into actionable information.
 """,
 "index": [
+    {"sr": "1", "title": "Introduction", "bold": True, "page": ""},
+    {"level1": "1.1", "title": "Background", "page": ""},
+    {"level1": "1.2", "title": "Objectives", "page": ""},
+    {"level1": "1.3", "title": "Purpose, Scope, and Applicability", "page": ""},
+    {"level2": "1.3.1", "title": "Purpose", "page": ""},
+    {"level2": "1.3.2", "title": "Scope", "page": ""},
+    {"level2": "1.3.3", "title": "Applicability", "page": ""},
+    {"level1": "1.4", "title": "Achievements", "page": ""},
+    {"level1": "1.5", "title": "Organisation of Report", "page": ""},
 
-    {"sr": "1", "title": "Introduction", "bold": True},
+    {"sr": "2", "title": "Survey Of Technologies", "bold": True, "page": ""},
 
-    {"level1": "1.1", "title": "Background"},
+    {"sr": "3", "title": "Requirements And Analysis", "bold": True, "page": ""},
+    {"level1": "3.1", "title": "Problem Definition", "page": ""},
+    {"level1": "3.2", "title": "Requirements Specification", "page": ""},
+    {"level1": "3.3", "title": "Planning and Scheduling", "page": ""},
+    {"level1": "3.4", "title": "Software and Hardware Requirements", "page": ""},
+    {"level1": "3.5", "title": "Preliminary Product Description", "page": ""},
+    {"level1": "3.6", "title": "Conceptual Models", "page": ""},
 
-    {"level1": "1.2", "title": "Objectives"},
+    {"sr": "4", "title": "System Design", "bold": True, "page": ""},
+    {"level1": "4.1", "title": "Basic Modules", "page": ""},
+    {"level1": "4.2", "title": "Data Design", "page": ""},
+    {"level2": "4.2.1", "title": "Schema Design", "page": ""},
+    {"level2": "4.2.2", "title": "Data Integrity and Constraints", "page": ""},
+    {"level1": "4.3", "title": "Procedural Design", "page": ""},
+    {"level2": "4.3.1", "title": "Logic Diagrams", "page": ""},
+    {"level2": "4.3.2", "title": "Data Structures", "page": ""},
+    {"level2": "4.3.3", "title": "Algorithms Design", "page": ""},
+    {"level1": "4.4", "title": "User Interface Design", "page": ""},
+    {"level1": "4.5", "title": "Security Issues", "page": ""},
+    {"level1": "4.6", "title": "Test Cases Design", "page": ""},
 
-    {"level1": "1.3", "title": "Purpose, Scope, and Applicability"},
+    {"sr": "5", "title": "Implementation And Testing", "bold": True, "page": ""},
+    {"level1": "5.1", "title": "Implementation Approaches", "page": ""},
+    {"level1": "5.2", "title": "Coding Details and Code Efficiency", "page": ""},
+    {"level2": "5.2.1", "title": "Code Efficiency", "page": ""},
+    {"level1": "5.3", "title": "Testing Approach", "page": ""},
+    {"level2": "5.3.1", "title": "Unit Testing", "page": ""},
+    {"level2": "5.3.2", "title": "Integrated Testing", "page": ""},
+    {"level2": "5.3.3", "title": "Beta Testing", "page": ""},
+    {"level1": "5.4", "title": "Modifications and Improvements", "page": ""},
+    {"level1": "5.5", "title": "Test Cases", "page": ""},
 
-    {"level2": "1.3.1", "title": "Purpose"},
+    {"sr": "6", "title": "Results And Discussion", "bold": True, "page": ""},
+    {"level1": "6.1", "title": "Test Reports", "page": ""},
+    {"level1": "6.2", "title": "User Documentation", "page": ""},
 
-    {"level2": "1.3.2", "title": "Scope"},
+    {"sr": "7", "title": "Conclusions", "bold": True, "page": ""},
+    {"level1": "7.1", "title": "Conclusion", "page": ""},
+    {"level2": "7.1.1", "title": "Significance of the System", "page": ""},
+    {"level1": "7.2", "title": "Limitations of the System", "page": ""},
+    {"level1": "7.3", "title": "Future Scope of the Project", "page": ""},
 
-    {"level2": "1.3.3", "title": "Applicability"},
-
-    {"level1": "1.4", "title": "Achievements"},
-
-    {"level1": "1.5", "title": "Organization of Report"},
-
-    {
-        "sr": "2",
-        "title": "Survey Of Technologies",
-        "bold": True
-    },
-
-    {
-        "sr": "3",
-        "title": "Requirement And Analysis",
-        "bold": True
-    },
-
-    {"level1": "3.1", "title": "Problem Definition"},
-
-    {"level1": "3.2", "title": "Requirement Specification"},
-
-    {"level1": "3.3", "title": "Planning and Scheduling"},
-
-    {
-        "level1": "3.4",
-        "title": "Software and Hardware Requirements"
-    },
-
-    {
-        "level1": "3.5",
-        "title": "Preliminary Product Description"
-    },
-
-    {
-        "level1": "3.6",
-        "title": "Conceptual Models"
-    },
-
-    {"level2": "3.6.1", "title": "Event Table"},
-
-    {"level2": "3.6.2", "title": "Use Case Diagram"},
-
-    {"level2": "3.6.3", "title": "Entity Relationship Diagram"},
-
-    {"level2": "3.6.4", "title": "Class Diagram"},
-
-    {"level2": "3.6.5", "title": "Object Diagram"},
-
-    {"level2": "3.6.6", "title": "Activity Diagram"},
-
-    {"level2": "3.6.7", "title": "Sequence Diagram"},
-
-    {"level2": "3.6.8", "title": "State Flow Diagram"},
-
-    {"level2": "3.6.9", "title": "Context Diagram"},
-
-    {"level2": "3.6.10", "title": "Data Flow Diagram"},
-
-    {"level2": "3.6.11", "title": "Component Diagram"},
-
-    {"level2": "3.6.12", "title": "Package Diagram"},
-
-    {"level2": "3.6.13", "title": "Deployment Diagram"},
-
-    {
-        "sr": "4",
-        "title": "System Coding",
-        "bold": True
-    },
-
-    {"level1": "4.1", "title": "Code"},
-    {"level1": "4.2", "title": "Data Dictionary"},
-    {"level1": "4.3", "title": "Program Description"},
-    {"level1": "4.4", "title": "Naming Conventions"},
-    {"level1": "4.5", "title": "Validations"},
-
-    {
-        "sr": "5",
-        "title": "Program Listing",
-        "bold": True
-    },
-
-    {"level1": "5.1", "title": "Cost Estimation"},
-    {"level1": "5.2", "title": "Schema Design"},
-    {"level1": "5.3", "title": "User Manual With Screenshots"},
-    {"level1": "5.4", "title": "Test Cases Design"},
-
-    {
-        "sr": "6",
-        "title": "Conclusion",
-        "bold": True
-    },
-
-    {"level1": "6.1", "title": "Conclusion"},
-    {"level1": "6.2", "title": "Limitations of the System"},
-    {"level1": "6.3", "title": "Future Scope of the Project"},
-
-    {
-        "sr": "7",
-        "title": "Bibliography",
-        "bold": True
-    },
-]
+    {"sr": "", "title": "References", "bold": True, "page": ""},
+    {"sr": "", "title": "Glossary", "bold": True, "page": ""},
+],
+"figures_index": [
+    {"sr": "1", "title": "Gantt Chart", "page": ""},
+    {"sr": "2", "title": "PERT Chart", "page": ""},
+    {"sr": "3", "title": "Event Table", "page": ""},
+    {"sr": "4", "title": "ER Diagram", "page": ""},
+    {"sr": "5", "title": "Class Diagram", "page": ""},
+    {"sr": "6", "title": "Object Diagram", "page": ""},
+    {"sr": "7", "title": "Use Case Diagram", "page": ""},
+    {"sr": "8", "title": "Activity Diagram", "page": ""},
+    {"sr": "9", "title": "Sequence Diagram", "page": ""},
+    {"sr": "10", "title": "State Diagram", "page": ""},
+    {"sr": "11", "title": "Package Diagram", "page": ""},
+    {"sr": "12", "title": "Component Diagram", "page": ""},
+    {"sr": "13", "title": "Deployment Diagram", "page": ""},
+    {"sr": "14", "title": "Data Flow Level 0 Diagram", "page": ""},
+    {"sr": "15", "title": "Data Flow Level 1 Diagram", "page": ""},
+    {"sr": "16", "title": "Data Flow Level  Diagram", "page": ""},
+    {"sr": "17", "title": "Database Schema Design", "page": ""},
+],
     }
-
     add_cover_page(document, data)
+# add_proforma_page(document, data)      # NEW — pending your answer below
     add_certificate_page(document, data)
-    add_declaration_page(document, data)
-    add_acknowledgement_page(document, data)
+# add_role_responsibility_page(document, data)  # NEW — pending your answer below
     add_abstract_page(document, data)
+    add_acknowledgement_page(document, data)   # swapped: now after abstract
     add_index_page(document, data)
+    add_figures_page(document, data)
     document.add_page_break()
     render_markdown(
-    document,
-    "src/blackbook/chapters/introduction.md")
+        document,
+        "src/blackbook/chapters/introduction.md"
+    )
     render_plain_text_file(
        document,
        "src/blackbook/chapters/survey_of_technologies.txt"

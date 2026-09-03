@@ -75,9 +75,7 @@ def create_document(config=None):
     section.left_margin = Cm(config.left_margin_cm)
     section.right_margin = Cm(config.right_margin_cm)
 
-    # Page border
-    if config.border_enabled:
-        set_page_border(section, config)
+    
 
     # Page number
     add_page_number(section)

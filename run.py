@@ -14,24 +14,29 @@ def main():
     document = create_document(config)
 
     data = {
-        "project_title": "PROJECT TITLE",
-        "project_subtitle": "(Project Subtitle)",
-        "semester_requirement": "Requirements for completion of Semester V of",
-        "degree": "BACHELOR OF VOCATION (SOFTWARE DEVELOPMENT)",
-        "student_name": "STUDENT NAME",
-        "uid": "STUDENT UID",
-        "guide": "Prof. GUIDE NAME",
-        "coordinator": "Ms. COORDINATOR NAME",
-        "academic_year": "2026-27",
-        "acknowledgement": """
-I would like to express my sincere gratitude to all the people who have helped me throughout the completion of this project. I am grateful to my project guide for the continuous support, guidance and encouragement provided throughout the development of the project.
+        "project_title": "Enter your Project Name", 
+        "project_subtitle": "", 
+"semester_requirement": "Submitted in partial fulfillment of the\nRequirements for the award of the Degree of",
+"degree": "BACHELOR OF SCIENCE (INFORMATION TECHNOLOGY)",
+"student_name": "Name of Student",
+"uid": "UID / Roll No.",
+"guide": "Mr. Wilson Rao and Ms. Bertilla Fernandes",
+"coordinator": "",  
+"academic_year": "2026-27",
 
-I would also like to express my deep gratitude to the Head of the Department and all the faculty members of the Department of Information Technology for their valuable guidance and support.
+        "acknowledgement": 
+"""I am extremely grateful for the guidance of our Head of Department (Information Technology
+& Software Development) Mr. Wilson Rao. Sir had great involvement in making sure my
+project is a well-rounded and a flawless system by constantly guiding us till the completion of
+our project work by providing all the necessary information for developing a good system.
+I would like to express immense gratitude to the people who have helped me throughout the
+course of my project. I am grateful to Prof. Ms. Bertilla Fernandes for her constant
+encouragement and support.
+I would also like to thank all of my friends and my seniors who supported and helped me in
+completing the project, where they all had their own interesting takes on the technology stack,
+and the own interesting ideas on how to finesse the system even further. I would also like to
+thank my family for their constant support and encouragement.""",
 
-I would like to thank my friends and classmates for their valuable suggestions, ideas and assistance during the development of the project.
-
-Finally, I would like to thank my parents and family for their constant support, encouragement and motivation throughout the completion of this project.
-""",
 "abstract": """
 Cleanlytics is a web-based data analytics and cleaning platform that provides data preparation, analysis, 
 and visualization through a single interface. It supports CSV, Excel, JSON and automatically profiles uploaded data 
@@ -59,62 +64,58 @@ integrated workflow from raw data to meaningful insights.
 approach to transforming raw data into actionable information.
 """,
 "index": [
-    {"sr": "1", "title": "Introduction", "bold": True, "page": ""},
-    {"level1": "1.1", "title": "Background", "page": ""},
-    {"level1": "1.2", "title": "Objectives", "page": ""},
-    {"level1": "1.3", "title": "Purpose, Scope, and Applicability", "page": ""},
-    {"level2": "1.3.1", "title": "Purpose", "page": ""},
-    {"level2": "1.3.2", "title": "Scope", "page": ""},
-    {"level2": "1.3.3", "title": "Applicability", "page": ""},
-    {"level1": "1.4", "title": "Achievements", "page": ""},
-    {"level1": "1.5", "title": "Organisation of Report", "page": ""},
+    {"sr": "1", "title": "Introduction", "bold": True},
+    {"level1": "1.1", "title": "Background"},
+    {"level1": "1.2", "title": "Objectives"},
+    {"level1": "1.3", "title": "Purpose, Scope, and Applicability"},
+    {"level2": "1.3.1", "title": "Purpose"},
+    {"level2": "1.3.2", "title": "Scope"},
+    {"level2": "1.3.3", "title": "Applicability"},
+    {"level1": "1.4", "title": "Achievements"},
+    {"level1": "1.5", "title": "Organization of Report"},
 
-    {"sr": "2", "title": "Survey Of Technologies", "bold": True, "page": ""},
+    {"sr": "2", "title": "Survey Of Technologies", "bold": True},
 
-    {"sr": "3", "title": "Requirements And Analysis", "bold": True, "page": ""},
-    {"level1": "3.1", "title": "Problem Definition", "page": ""},
-    {"level1": "3.2", "title": "Requirements Specification", "page": ""},
-    {"level1": "3.3", "title": "Planning and Scheduling", "page": ""},
-    {"level1": "3.4", "title": "Software and Hardware Requirements", "page": ""},
-    {"level1": "3.5", "title": "Preliminary Product Description", "page": ""},
-    {"level1": "3.6", "title": "Conceptual Models", "page": ""},
+    {"sr": "3", "title": "Requirement And Analysis", "bold": True},
+    {"level1": "3.1", "title": "Problem Definition"},
+    {"level1": "3.2", "title": "Requirement Specification"},
+    {"level1": "3.3", "title": "Planning and Scheduling"},
+    {"level1": "3.4", "title": "Software and Hardware Requirements"},
+    {"level1": "3.5", "title": "Preliminary Product Description"},
+    {"level1": "3.6", "title": "Conceptual Models"},
+    {"level2": "3.6.1", "title": "Event Table"},
+    {"level2": "3.6.2", "title": "Use Case Diagram"},
+    {"level2": "3.6.3", "title": "Entity Relationship Diagram"},
+    {"level2": "3.6.4", "title": "Class Diagram"},
+    {"level2": "3.6.5", "title": "Object Diagram"},
+    {"level2": "3.6.6", "title": "Activity Diagram"},
+    {"level2": "3.6.7", "title": "Sequence Diagram"},
+    {"level2": "3.6.8", "title": "State Flow Diagram"},
+    {"level2": "3.6.9", "title": "Context Diagram"},
+    {"level2": "3.6.10", "title": "Data Flow Diagram"},
+    {"level2": "3.6.11", "title": "Component Diagram"},
+    {"level2": "3.6.12", "title": "Package Diagram"},
+    {"level2": "3.6.13", "title": "Deployment Diagram"},
 
-    {"sr": "4", "title": "System Design", "bold": True, "page": ""},
-    {"level1": "4.1", "title": "Basic Modules", "page": ""},
-    {"level1": "4.2", "title": "Data Design", "page": ""},
-    {"level2": "4.2.1", "title": "Schema Design", "page": ""},
-    {"level2": "4.2.2", "title": "Data Integrity and Constraints", "page": ""},
-    {"level1": "4.3", "title": "Procedural Design", "page": ""},
-    {"level2": "4.3.1", "title": "Logic Diagrams", "page": ""},
-    {"level2": "4.3.2", "title": "Data Structures", "page": ""},
-    {"level2": "4.3.3", "title": "Algorithms Design", "page": ""},
-    {"level1": "4.4", "title": "User Interface Design", "page": ""},
-    {"level1": "4.5", "title": "Security Issues", "page": ""},
-    {"level1": "4.6", "title": "Test Cases Design", "page": ""},
+    {"sr": "4", "title": "System Coding", "bold": True},
+    {"level1": "4.1", "title": "Code"},
+    {"level1": "4.2", "title": "Data Dictionary"},
+    {"level1": "4.3", "title": "Program Description"},
+    {"level1": "4.4", "title": "Naming Conventions"},
+    {"level1": "4.5", "title": "Validations"},
 
-    {"sr": "5", "title": "Implementation And Testing", "bold": True, "page": ""},
-    {"level1": "5.1", "title": "Implementation Approaches", "page": ""},
-    {"level1": "5.2", "title": "Coding Details and Code Efficiency", "page": ""},
-    {"level2": "5.2.1", "title": "Code Efficiency", "page": ""},
-    {"level1": "5.3", "title": "Testing Approach", "page": ""},
-    {"level2": "5.3.1", "title": "Unit Testing", "page": ""},
-    {"level2": "5.3.2", "title": "Integrated Testing", "page": ""},
-    {"level2": "5.3.3", "title": "Beta Testing", "page": ""},
-    {"level1": "5.4", "title": "Modifications and Improvements", "page": ""},
-    {"level1": "5.5", "title": "Test Cases", "page": ""},
+    {"sr": "5", "title": "Program Listing", "bold": True},
+    {"level1": "5.1", "title": "Cost Estimation"},
+    {"level1": "5.2", "title": "Schema Design"},
+    {"level1": "5.3", "title": "User Manual With Screenshots"},
+    {"level1": "5.4", "title": "Test Cases Design"},
 
-    {"sr": "6", "title": "Results And Discussion", "bold": True, "page": ""},
-    {"level1": "6.1", "title": "Test Reports", "page": ""},
-    {"level1": "6.2", "title": "User Documentation", "page": ""},
+    {"sr": "6", "title": "Conclusion", "bold": True},
+    {"level1": "6.1", "title": "Conclusion"},
+    {"level1": "6.2", "title": "Limitations of the System"},
+    {"level1": "6.3", "title": "Future Scope of the Project"},
 
-    {"sr": "7", "title": "Conclusions", "bold": True, "page": ""},
-    {"level1": "7.1", "title": "Conclusion", "page": ""},
-    {"level2": "7.1.1", "title": "Significance of the System", "page": ""},
-    {"level1": "7.2", "title": "Limitations of the System", "page": ""},
-    {"level1": "7.3", "title": "Future Scope of the Project", "page": ""},
-
-    {"sr": "", "title": "References", "bold": True, "page": ""},
-    {"sr": "", "title": "Glossary", "bold": True, "page": ""},
+    {"sr": "7", "title": "Bibliography", "bold": True},
 ],
 "figures_index": [
     {"sr": "1", "title": "Gantt Chart", "page": ""},
@@ -137,9 +138,7 @@ approach to transforming raw data into actionable information.
 ],
     }
     add_cover_page(document, data)
-# add_proforma_page(document, data)      # NEW — pending your answer below
     add_certificate_page(document, data)
-# add_role_responsibility_page(document, data)  # NEW — pending your answer below
     add_abstract_page(document, data)
     add_acknowledgement_page(document, data)   # swapped: now after abstract
     add_index_page(document, data)

@@ -20,21 +20,21 @@ def add_declaration_page(document, data):
     document.add_paragraph("\n")
 
     paragraphs = [
-        (
-            f'I hereby declare that the project entitled, '
-            f'“{data["project_title"]}” done at Jai Hind College, '
-            f'has not been in any case duplicated to submit to any '
-            f'other university for the award of any degree. To the '
-            f'best of my knowledge other than me, no one has submitted '
-            f'to any other university.'
-        ),
-        (
-            f'The project is done in partial fulfillment of the '
-            f'requirements for the award of degree of {data["degree"]} '
-            f'to be submitted as final semester project as part of '
-            f'our curriculum.'
-        )
-    ]
+    (
+        f'I hereby declare that the project entitled, '
+        f'“{data["project_title"]}” done at Jai Hind College '
+        f'(Empowered Autonomous), has not been in any case duplicated '
+        f'to submit to any other university for the award of any degree. '
+        f'To the best of my knowledge other than me, no one has submitted '
+        f'to any other university.'
+    ),
+    (
+        f'The project is done in partial fulfillment of the '
+        f'requirements for the award of degree of {data["degree"]} '
+        f'to be submitted as Semester V project as part of '
+        f'our curriculum.'
+    )
+]
 
     for text in paragraphs:
         p = document.add_paragraph()

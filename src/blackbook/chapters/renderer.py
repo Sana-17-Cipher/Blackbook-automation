@@ -1,6 +1,6 @@
 from pathlib import Path
 import re
-
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.text import WD_BREAK
 from docx.shared import Pt
 from ..figures import insert_figure
@@ -289,11 +289,16 @@ def add_reference(document, text, bold_prefix=None):
 
 def _render_tokens(document, tokens):
     section_seen = False
+    current_chapter = "0"
+    table_counts = {}
 
     for token in tokens:
         if token.type == CHAPTER:
             add_page_break(document)
             add_heading(document, token.text, 1)
+            match = re.search(r"\d+", token.text)
+            current_chapter = match.group(0) if match else current_chapter
+            table_counts[current_chapter] = 0
 
         elif token.type == SECTION:
             if section_seen:
@@ -317,7 +322,8 @@ def _render_tokens(document, tokens):
             add_requirement(document, token.text, bold_prefix=token.bold_prefix)
 
         elif token.type == TABLE:
-            add_table(document, token.rows)
+            table_counts[current_chapter] = table_counts.get(current_chapter, 0) + 1
+            add_table(document, token.rows, token.text, current_chapter, table_counts[current_chapter])
 
         elif token.type == BODY:
             add_body_paragraph(document, token.text)
@@ -326,6 +332,43 @@ def _render_tokens(document, tokens):
             add_figure(document, token.text)
         elif token.type == REFERENCE:
             add_reference(document, token.text, bold_prefix=token.bold_prefix)
+def add_table(document, rows, title, chapter_num, table_count):
+    """
+    Render a plain-text tab-separated block as a real Word table,
+    with an auto-numbered caption (Table {chapter}.{n}: {title}),
+    styled to match figure captions.
+    """
+    if not rows:
+        return None
+
+    num_cols = max(len(r) for r in rows)
+    table = document.add_table(rows=len(rows), cols=num_cols)
+    table.style = "Table Grid"
+
+    for row_idx, row_data in enumerate(rows):
+        cells = table.rows[row_idx].cells
+        for col_idx in range(num_cols):
+            text = row_data[col_idx] if col_idx < len(row_data) else ""
+            cell = cells[col_idx]
+            cell.text = ""
+            paragraph = cell.paragraphs[0]
+            run = paragraph.add_run(clean_inline_markdown(text))
+            run.font.size = Pt(12)
+            run.font.name = "Times New Roman"
+            run.bold = (row_idx == 0)
+
+    caption = document.add_paragraph()
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    caption_run = caption.add_run(f"Table {chapter_num}.{table_count}: {title}")
+    caption_run.bold = True
+    caption_run.font.size = Pt(12)
+    caption_run.font.name = "Times New Roman"
+    caption.paragraph_format.space_after = Pt(10)
+
+    spacer = document.add_paragraph()
+    spacer.paragraph_format.space_after = Pt(4)
+
+    return table
 
 
 # ---------------------------------------------------------------------
@@ -400,3 +443,5 @@ def render_markdown(document, markdown_file):
         current_paragraph.append(clean_inline_markdown(line))
 
     flush_paragraph()
+
+    

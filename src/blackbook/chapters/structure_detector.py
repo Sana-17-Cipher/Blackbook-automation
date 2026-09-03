@@ -56,6 +56,7 @@ BODY = "body"
 FIGURE = "figure"
 PAGEBREAK = "pagebreak"
 REFERENCE = "reference"
+pending_table_title = None
 
 @dataclass
 class Token:
@@ -77,11 +78,13 @@ SINGLE_NUM_RE = re.compile(r"^(\d+)\.\s+(\S.*)$")           # 1. <text>
 BULLET_RE = re.compile(r"^[-*\u2022]\s+\S.*$")              # - item / * item
 CHAPTER_WORD_RE = re.compile(r"^CHAPTER\s+\d+", re.IGNORECASE)
 FIGURE_RE = re.compile(r"^\[figure:\s*([\d.]+)\]$", re.IGNORECASE)  # [figure: 3.3.1]
+TABLE_TITLE_RE = re.compile(r"^\[table:\s*(.+)\]$", re.IGNORECASE)
 PAGEBREAK_RE = re.compile(r"^\[pagebreak\]$", re.IGNORECASE)
 # 1. Title - description. Available at: URL
 REFERENCE_RE = re.compile(r"^\d+\.\s+(.+?)\s-\s(.+)$")
 # I. / II. / III. / IV. ... up to a generous roman numeral length
 ROMAN_RE = re.compile(r"^([IVXLCDM]{1,6})\.\s+(\S.*)$")
+
 
 # Words that typically start the sentence part of a requirement line,
 # used to find where the bold label ends.
@@ -186,6 +189,7 @@ def detect_structure(text: str) -> List[Token]:
     table_buffer: List[List[str]] = []
     last_meaningful_line = ""
     in_numbered_list = False
+    pending_table_title = None          # <-- NEW
 
     def flush_body():
         if body_buffer:
@@ -195,9 +199,11 @@ def detect_structure(text: str) -> List[Token]:
             body_buffer.clear()
 
     def flush_table():
+        nonlocal pending_table_title    # <-- NEW
         if table_buffer:
-            tokens.append(Token(TABLE, "", rows=[row[:] for row in table_buffer]))
+            tokens.append(Token(TABLE, pending_table_title or "", rows=[row[:] for row in table_buffer]))
             table_buffer.clear()
+            pending_table_title = None  # <-- NEW
 
     for raw_line in text.splitlines():
         line = raw_line.strip("\n")
@@ -206,6 +212,15 @@ def detect_structure(text: str) -> List[Token]:
         if not stripped:
             flush_body()
             flush_table()
+            continue
+
+        # --- table title placeholder: [table: Title] ---     <-- NEW BLOCK
+        title_match = TABLE_TITLE_RE.match(stripped)
+        if title_match:
+            flush_body()
+            flush_table()
+            pending_table_title = title_match.group(1).strip()
+            last_meaningful_line = stripped
             continue
 
         # --- table row (check BEFORE .strip() collapses tabs at edges) ---
@@ -280,7 +295,8 @@ def detect_structure(text: str) -> List[Token]:
             last_meaningful_line = line
             in_numbered_list = False
             continue
-                # --- reference entry: "1. Title - description. Available at: URL" ---
+
+        # --- reference entry: "1. Title - description. Available at: URL" ---
         ref_match = REFERENCE_RE.match(line)
         if ref_match and "Available at:" in line:
             flush_body()
